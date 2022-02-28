@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="TemplateMo">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <title>Géoportail Economique</title>
+    <link rel="icon" type="image/x-icon" href="assets/images/favico.png">
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/templatemo-finance-business.css">
+    <link rel="stylesheet" href="assets/css/owl.css">
+    <link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+
+	  <link rel="stylesheet" href="css/leaflet.css" />
+    <link rel="stylesheet" href="css/check.css" />
+    
+	  <script src="js/leaflet.js"></script>
+	  <script src="SelectLayers.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <style>
+      #map {
+        width: 600px;
+        height: 400px;
+        background-color: white;
+      }
+      #map1 {
+        width: 600px;
+        height: 400px;
+        background-color: white;
+      }
+      .info {
+          padding: 6px 8px;
+          font: 14px/16px Arial, Helvetica, sans-serif;
+          background: white;
+          background: rgba(255,255,255,0.8);
+          box-shadow: 0 0 15px rgba(0,0,0,0.2);
+          border-radius: 5px;
+        position: relative;
+        right: 280px;
+      }
+      .info h9 {
+          margin: 0 0 5px;
+          color: #777;
+          font-weight: bold;
+      }
+      .info1 {
+          padding: 6px 8px;
+          font: 14px/16px Arial, Helvetica, sans-serif;
+          background: white;
+          background: rgba(255,255,255,0.8);
+          box-shadow: 0 0 15px rgba(0,0,0,0.2);
+          border-radius: 5px;
+        position: relative;
+        right: 280px;
+      }
+      .info1 h9 {
+          margin: 0 0 5px;
+          color: #777;
+          font-weight: bold;
+      }
+  
+      .legend {
+          position: relative;
+        left :2px;
+      }
+      .legend i {
+             width: 12px;
+             height: 12px;
+             float: left;
+             margin-right: 8px;
+             opacity: 1;
+      }   
+      .container11{
+        border-style: solid;
+        border-radius: 15px;
+        background: #a4c639;
+      }
+    </style>
+<!--
+
+Finance Business TemplateMo
+
+https://templatemo.com/tm-545-finance-business
+
+-->
+  </head>
+
+  <body>
+
+    <!-- ***** Preloader Start ***** -->
+    <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>  
+    <!-- ***** Preloader End ***** -->
+
+    <!-- Header 
+    <div class="sub-header">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-xs-12">
+            <ul class="left-info">
+              <li><a href="#"><i class="fa fa-clock-o"></i>Mon-Fri 09:00-17:00</a></li>
+              <li><a href="#"><i class="fa fa-phone"></i>090-080-0760</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <ul class="right-icons">
+              <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+              <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+              <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+              <li><a href="#"><i class="fa fa-behance"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  -->
+  <header class="background-header">
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="index.html"><h2><img src="assets/images/EcoGéo.png" height="80px"  ></h2></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item ">
+              <a class="nav-link" href="index.html">Accueil
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">Ressources</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="services.html">Cartes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+    <!-- Page Content -->
+    <div class="page-heading header-text">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h1>Nos Cartes</h1>
+            <span>Consultez les cartes ci-dessous</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="single-services">
+      <div class="container">
+        <div class="row" id="tabs">
+          <div class="col-md-4">
+            <ul>
+              <li><a href='#tabs-1'>Contribution au PIB <i class="fa fa-angle-right"></i></a></li>
+              <li><a href='#tabs-2'>DCFM <i class="fa fa-angle-right"></i></a></li>
+              <li><a href='#tabs-3'>Crédit INDH <i class="fa fa-angle-right"></i></a></li>
+              <li><a href='#tabs-4'>Investissement des EEP <i class="fa fa-angle-right"></i></a></li>
+              <li><a href='#tabs-5'>Effets de la sécheresse <i class="fa fa-angle-right"></i></a></li>
+            </ul>
+          </div>
+          <div class="col-md-8">
+            <section class='tabs-content'>
+              <article id='tabs-1'>
+                <iframe style="border: none ;" height="450" width="650" src="geojson-layer.html"></iframe>
+                <h4>Analyse</h4>
+                <p>Les trois régions de Casablanca-Settat, de Rabat-Salé-Kénitra et de Tanger-Tétouan-Al Hoceima ont créé 58,7% de la richesse nationale, en 2020, selon les comptes régionaux publiés par le HCP. La capitale économique représentait 32,2% de la richesse nationale, contre 15,6% et 10,8% respectivement pour Rabat-Salé-Kénitra et Tanger-Tétouan-Al Hoceima.
+                <br><br>Cinq régions ont généré 34,2% du PIB : les régions de Fès-Meknès et de Marrakech-Safi avec 8,4% chacune, la région de Souss-Massa avec 6,7%, de Béni Mellal-Khénifra avec 5,7% et de l’Oriental avec 4,9%. Quant aux régions de Drâa-Tafilalet et les trois régions du sud, elles ont contribué de 7% à la création de PIB en valeur, avec 2,5% et 4,5% respectivement.</p>
+                <canvas id="myChart" style="width:100%;max-width:400px"></canvas>
+
+                <script>
+
+                  var xValues = ["Grand Casa-Settat","Rabat-Salé-Kénitra","Tanger-Tétouan-Al Hoceima","Le reste"];
+                  var yValues = [ 32.2, 15.6, 10.8, 41.4];
+                  var barColors = ["#3288bd","#99d594","#e6f598","red"]
+                  
+                  
+                  new Chart("myChart", {
+                    type: "doughnut",
+                    data: {
+                      labels: xValues,
+                      datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues
+                      }]
+                    },
+                    options: {
+                      title: {
+                        display: true,
+                        text: "Disparités régionales"
+                      }
+                    }
+                  });
+                  </script>
+              </article>
+              <article id='tabs-2'>
+                <iframe style="border: none ;" height="550" width="700" src="dcfm.html"></iframe>
+                <h4>Analyse</h4>
+                <p>En moyenne entre 2017 et 2018 les régions de Casablanca-Settat, de Rabat-Salé-Kénitra et de Fès-Meknès ont accaparé  un peu plus de la moitié  (51,5%) des dépenses de consommation finale des ménages  (DCFM) au niveau national, avec 25% , 14,8% et 11,7%, respectivement. 
+                  Celles de Tanger-Tétouan-Al Hoceima et de Marrakech-Safi ont détenu une part de 22,6% des DCFM,  répartie respectivement à 11,4%et 11,2%. 
+                  Les sept  régions restantes ont contribué pour près d’un quart (25,9%) aux DCFM, avec des apports compris entre 0,7% pour la région de Dakhla-Oued-Ed-Dahab et 7,2% pour la région de Souss-Massa.
+                  <canvas id="Chart2" style="width:100%;max-width:800px"></canvas>
+                  <script>
+
+                    var xValues = [2017,2018,2019,2020];
+                    var yValues = [17565,18023,18307,18144];
+                    
+                    new Chart("Chart2", {
+                      type: "line",
+                      data: {
+                        labels: xValues,
+                        datasets: [{
+                          backgroundColor: "transparent",
+                          borderColor: "black",
+                          data: yValues
+                        }]
+                      },
+                      options: {
+                        legend: {display: false},
+                        title: {
+                          display: true,
+                          text: "Evolution des DCFM par tête au Maroc"
+                        }
+                      }
+                    });
+                    </script>
+                  
+                  <br><br>A cet effet, la dispersion des dépenses de consommation finale des ménages par tête a enregistré une légère hausse. L’écart absolu moyen est passé de 2 734 DH en 2017 à 2 856 DH en  2018 à    2 880 DH en 2019. La crise sanitaire du Covid-19 a causé une diminution dans les dépenses en 2020.  </p>
+              </article>
+              <article id='tabs-3'>
+                <div id='map'></div>
+
+                
+                <input type="checkbox" id="roads" />
+                <label  class="container11" for="roads">Routes Nationales
+                  
+                <span class="checkmark"></span>
+                </label>
+                <input type="checkbox" >
+                  <label id="railway" class="container11">Chemins de Fer &nbsp;&nbsp;&nbsp;
+                  
+                  <span class="checkmark"></span>
+                  </label>
+                  <input type="checkbox" >
+                  <label id="cheflieu" class="container11">Chefs lieu &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    
+                    <span class="checkmark"></span>
+                  </label>
+                  
+                <script type="text/javascript" src="js/projets.js"></script>
+                <script type="text/javascript" src="js/railway.js"></script>
+                <script type="text/javascript" src="js/routes.js"></script>
+                <script type="text/javascript" src="js/cheflieu.js"></script>
+                
+                <script type="text/javascript">
+                  var map = L.map('map').setView([28.4937, -9.283], 5);
+                
+                  var test1= L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
+                    maxZoom: 18,
+                    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+                      '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                      'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+                    id: 'mapbox.light'
+                  }).addTo(map);
+                
+                  var geoJson =L.geoJson(projets)
+                  const markerIcon = L.icon({
+  iconSize: [25, 41],
+  iconAnchor: [10, 41],
+  popupAnchor: [2, -40],
+  // specify the path here
+  iconUrl: "https://unpkg.com/leaflet@1.5.1/dist/images/marker-icon.png",
+  shadowUrl: "https://unpkg.com/leaflet@1.5.1/dist/images/marker-shadow.png"
+});
+                  var geojsonMarkerOptions = {
+    radius: 8,
+    fillColor: "#ff7800",
+    color: "#000",
+    weight: 1,
+    opacity: 1,
+    fillOpacity: 0.8
+};
+                
+                  // get color depending on population density value
+                  function getColor(d) {
+                      return d > 15
+                        ? "#006837"
+                        : d > 10
+                        ? "#31a354"
+                        : d > 5
+                        ? "#78c679"
+                        : d > 2
+                        ? "#c2e699"
+                        : "#ffffcc";
+                    }
+                
+                  function Monstyle(feature) {
+                    return {
+                      weight: 1,
+                      opacity: 1,
+                      color: 'black',
+                      dashArray: '',
+                      fillOpacity: 1,
+                      fillColor: getColor(feature.properties.projet)
+                    };
+                  }
+                
+                  function linestyle(feature) {
+                    return {
+                      weight: 1.2,
+                      opacity: 1,
+                      dashArray: '5',
+                      color: 'red',
+                    };
+                  }
+                  function linestyle1(feature) {
+                    return {
+                      weight: 1,
+                      opacity: 1,
+                      dashArray: '',
+                      color: 'yellow',
+                    };
+                  }
+                
+                  function highlightFeature1(e) {
+                      var layer = e.target;
+                
+                      
+                
+                      if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                          layer.bringToFront();
+                      }
+                          info1.update(layer.feature.properties);
+                
+                  }
+                
+                  
+                    
+                
+                  
+                  function zoomToFeature1(e) {
+                    map.fitBounds(e.target.getBounds());
+                }
+                  function onEachFeature(feature, layer) {
+                    layer.on({
+                        mouseover: highlightFeature1,
+                         
+                        click: zoomToFeature1
+                    });
+                }
+                var info1 = L.control();
+                
+                info1.onAdd = function (map) {
+                    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+                    this.update();
+                    return this._div;
+                };
+                
+                // method that we will use to update the control based on feature properties passed
+                info1.update = function (props) {
+                    this._div.innerHTML = "<h9>Crédits INDH programmés en 2020</h9> <br />" +  (props ?
+                        'Région : <b>' + props.Région + '</b> <br />Montant : ' + props.projet + ' %</sup>'
+                        : 'Merci de mettre le cursuer sur la region');
+                };
+                
+                info1.addTo(map);
+                
+                  var geojson = L.geoJson(projets, {
+                    style: Monstyle,
+                      onEachFeature: onEachFeature,
+                }).addTo(map);
+                    var rail = L.geoJson(railway,{
+                    style:linestyle,
+                  });
+                  var road = L.geoJson(routes,{
+                    style:linestyle1,
+                  });
+                  var myIcon = new L.icon({
+  iconUrl: './assets/images/icone.png',
+  iconSize: [15, 15],
+});
+
+function onEachFeature5(feature, layer) {
+  layer.bindPopup(feature.properties.cheflieu);
+}
+
+
+
+var cheflieu=L.geoJson(cheflieu, {
+  pointToLayer: function (feature, latlng) {
+            return L.marker(latlng, {icon: myIcon});
+    },
+  onEachFeature: onEachFeature5
+});           
+                
+                var legend = L.control({ position: "bottomright" });
+                
+                legend.onAdd = function (map) {
+                  var div = L.DomUtil.create("div", "info legend"),
+                    grades = [0, 2, 5, 10, 15],
+                    labels = [];
+                
+                  // loop through our density intervals and generate a label with a colored square for each interval
+                  for (var i = 0; i < grades.length; i++) {
+                    div.innerHTML +=
+                      '<i style="background:' +
+                      getColor(grades[i] + 1) + 
+                      '"></i> ' +
+                      grades[i] +
+                      (grades[i + 1] ? "&ndash;" + grades[i + 1] + "<br>" : "+");
+                  }
+                
+                  return div;
+                };
+                
+                legend.addTo(map);
+                
+                $("#roads").click(function(event) {
+                    event.preventDefault();
+                    if(map.hasLayer(road)) {
+                        $(this).removeClass('selected');
+                        map.removeLayer(road);
+                    } else {
+                        map.addLayer(road);        
+                        $(this).addClass('selected');
+                   }
+                });
+                $("#railway").click(function(event) {
+                    event.preventDefault();
+                    if(map.hasLayer(rail)) {
+                        $(this).removeClass('selected');
+                        map.removeLayer(rail);
+                    } else {
+                        map.addLayer(rail);        
+                        $(this).addClass('selected');
+                    }
+                });
+                $("#cheflieu").click(function(event) {
+                    event.preventDefault();
+                    if(map.hasLayer(cheflieu)) {
+                        $(this).removeClass('selected');
+                        map.removeLayer(cheflieu);
+                    } else {
+                        map.addLayer(cheflieu);        
+                        $(this).addClass('selected');
+                    }
+                });
+                
+
+
+ 
+
+     
+
+        // var overlayMaps = {
+        //     "geojson": geojson,
+        //  };
+
+        // //var control = L.control.layers(baseMaps, overlayMaps)
+        // var control = L.control.selectLayers(  overlayMaps)
+        // control.addTo(map);
+
+
+</script>
+                <h4>Analyse</h4>
+                <p>L'Initiative Nationale pour le Développement Humain (INDH) a été lancée le 18 Mai 2005 par Sa Majesté Le Roi Que Dieu L'Assiste. Cette initiative s'inscrit dans le cadre des réformes fondamentales et des projets structurants que le Royaume a engagé, notamment dans les domaines de la consolidation de l'Etat de droit, de l'élargissement des espaces de libertés, de la promotion des droits de la femme, de l'enfance et des catégories sociales démunies et fragiles.  
+                <br><br>Pour la mise en oeuvre du plan d'action au titre de l'année 2020, 484 projets ou actions ont été réalisés à fin Mai 2020 pour un montant global de 600 MDH. La répartition du montant du crédit attribué pour chaque région est illustré dans la carte ci-dessus. </p>
+              </article>
+              <article id='tabs-4'>
+                <div id='map1'></div>
+
+<script type="text/javascript" src="js/investissement.js"></script>
+
+
+<script type="text/javascript">
+
+	var map1 = L.map('map1').setView([28.4937, -9.283], 5);
+
+	/*var test1= L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
+		maxZoom: 18,
+		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+			'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+			'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+		id: 'mapbox.light'
+	}).addTo(map1);*/
+
+	// get color depending on population density value
+	function getColor(d) {
+                      return d > 15
+                        ? "#006837"
+                        : d > 10
+                        ? "#31a354"
+                        : d > 5
+                        ? "#78c679"
+                        : d > 2
+                        ? "#c2e699"
+                        : "#ffffcc";
+                    }
+
+	function Monstyle(feature) {
+		return {
+			weight: 1,
+			opacity: 1,
+			color: 'black',
+			dashArray: '',
+			fillOpacity: 1,
+			fillColor: getColor(feature.properties.inv)
+		};
+	}
+	
+
+	function highlightFeature(e) {
+	    var layer = e.target;
+
+	    layer.setStyle({
+	        weight: 5,
+	        color: '#666',
+	        dashArray: '',
+	        fillOpacity: 0.7
+	    });
+
+	    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+	        layer.bringToFront();
+	    }
+	        info.update(layer.feature.properties);
+
+	}
+
+	function resetHighlight(e) {
+    	geojson.resetStyle(e.target);
+    	    info.update();
+
+	}
+	function zoomToFeature(e) {
+    map.fitBounds(e.target.getBounds());
+}
+	function onEachFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+        click: zoomToFeature
+    });
+}
+var info = L.control();
+
+info.onAdd = function (map1) {
+    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+    this.update();
+    return this._div;
+};
+
+// method that we will use to update the control based on feature properties passed
+info.update = function (props) {
+    this._div.innerHTML = "<h9>Part dans l'investissement des EEP</h9> <br />" +  (props ?
+        'Région : <b>' + props.Région + '</b> <br />Part : ' + props.inv + ' %</sup>'
+        : 'Merci de mettre le cursuer sur la region');
+};
+
+info.addTo(map1);
+
+	var geojson = L.geoJson(investissement, {
+		style: Monstyle,
+	    onEachFeature: onEachFeature,
+}).addTo(map1);
+    
+
+
+var legend = L.control({ position: "bottomright" });
+
+legend.onAdd = function (map1) {
+  var div = L.DomUtil.create("div", "info legend"),
+    grades = [0, 2, 5, 10, 15],
+    labels = [];
+
+  // loop through our density intervals and generate a label with a colored square for each interval
+  for (var i = 0; i < grades.length; i++) {
+    div.innerHTML +=
+      '<i style="background:' +
+      getColor(grades[i] + 1) + 
+      '"></i> ' +
+      grades[i] +
+      (grades[i + 1] ? "&ndash;" + grades[i + 1] + "<br>" : "+");
+  }
+
+  return div;
+};
+
+legend.addTo(map1);
+
+     
+
+        // var overlayMaps = {
+        //     "geojson": geojson,
+        //  };
+
+        // //var control = L.control.layers(baseMaps, overlayMaps)
+        // var control = L.control.selectLayers(  overlayMaps)
+        // control.addTo(map);
+
+
+</script>
+
+                <h4>Analyse</h4>
+                <p>Le montant des programmes d'investissement des établissements et entreprises publics (EEP) s'élève globalement, pour l'exercice 2022, à 92,1 milliards de DH, relève-t-on dans la note de présentation du projet de loi de finances (PLF) 2022. 
+                <br><br>Or, ces programmes d'investissement couvrent principalement les secteurs présents dans les métropoles au Maroc: Casablanca, Rabat, Tanger, Marrakech et Oujda. Le diagramme ci-dessous illustre ces disparités entre les grandes régions et les petites régions.</p>
+                <canvas id="Chart4" style="width:100%;max-width:400px"></canvas>
+                <script>
+
+                  var xValues = ["Grand Casa-Settat","Rabat-Salé-Kénitra","Tanger-Tétouan-Al Hoceima","Oriental","Marrakech-Safi","Le reste"];
+                  var yValues = [ 36, 17, 7, 8, 10, 22];
+                  var barColors = ["green","yellow","grey","blue","orange","red"]
+                  
+                  
+                  new Chart("Chart4", {
+                    type: "pie",
+                    data: {
+                      labels: xValues,
+                      datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues
+                      }]
+                    },
+                    options: {
+                      title: {
+                        display: true,
+                        text: "Part dans l'ivestissement des EEP"
+                      }
+                    }
+                  });
+                  </script>
+
+              </article>
+              <article id='tabs-5'>
+                <div class="partner-item">
+                  <img src="assets/images/pib.jpg" title="1" alt="1">
+                </div>
+                
+                <div class="partner-item">
+                  <img src="assets/images/pluvio.jpg" title="2" alt="2">
+                </div>
+                <h4>Analyse</h4>
+                <p>Ces deux cartes illustrent la corrélation entre la pluviométrie et la richesse au Maroc.Pour un pays aussi dépendant de son agriculture que le Maroc, la pluviométrie conditionne fortement la croissance économique.
+                <br><br>La sécheresse impacte considérablement la population marocaine de manière globale, du fait que 80% des ruraux en subissent les effets en termes de moyens de subsistance tributaires de l’activité agricole, qui représente non moins de 15% du PIB et emploie 40% de la population active. Quelque 3,8 milliards de dirhams (plus de 400 millions de dollars) sont nécessaires pour les seules subventions à la farine en 2022, selon un responsable du ministère de l'Economie. Malgré une embellie pour les récoltes en 2021, une sécheresse alarmante affecte considérablement l'agriculture en ce début d'année. Ce stress hydrique affecte toute l'économie rurale. </p>
+              </article>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="partners">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="owl-partners owl-carousel">
+            
+              <div class="partner-item">
+                <img src="assets/images/Image IAV.png" title="1" alt="1">
+              </div>
+              
+              <div class="partner-item">
+                <img src="assets/images/ESGIT Image.png" title="2" alt="2">
+              </div>
+              
+              <div class="partner-item">
+                <img src="assets/images/hcp.png" title="3" alt="3">
+              </div>
+              
+              <div class="partner-item">
+                <img src="assets/images/MF.png" title="4" alt="4">
+              </div>
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Starts Here -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 footer-item">
+            <h4>ECOGEO</h4>
+            <p>Réalisé par FEROUAT Aymane et MABCHOUR Oussama étudiants en 3ème année cycle ingénieur en topographie et sciences géomatiques.</p>
+          </div>
+          <div class="col-md-3 footer-item">
+            <h4>Liens Utiles</h4>
+            <ul class="menu-list">
+              <li><a href="https://github.com/ayman-fer">GitHub FEROUAT Aymane</a></li>
+              <li><a href="https://github.com/oussamaMABCOUR">GitHub MABCHOUR Oussama</a></li>
+            </ul>
+          </div>
+          <div class="col-md-3 footer-item">
+            <h4>Additional Pages</h4>
+            <ul class="menu-list">
+              <li><a href="index.html">Accueil</a></li>
+              <li><a href="services.html">Cartes</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+          <div class="col-md-3 footer-item last-item">
+            <h4>Service Client</h4>
+            <div class="contact-form">
+              <form id="contact footer-contact" action="" method="post">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <fieldset>
+                      <input name="name" type="text" class="form-control" id="name" placeholder="Nom Prénom" required="">
+                    </fieldset>
+                  </div>
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <fieldset>
+                      <input name="email" type="text" class="form-control" id="email" pattern="[^ @]*@[^ @]*" placeholder="E-Mail " required="">
+                    </fieldset>
+                  </div>
+                  <div class="col-lg-12">
+                    <fieldset>
+                      <textarea name="message" rows="6" class="form-control" id="message" placeholder="Votre Message" required=""></textarea>
+                    </fieldset>
+                  </div>
+                  <div class="col-lg-12">
+                    <fieldset>
+                      <button type="submit" id="form-submit" class="filled-button">Envoyer</button>
+                    </fieldset>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+    <div class="sub-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <p>Copyright &copy; 2022 Projet WebMapping
+            
+            - Encadrement: <a rel="nofollow noopener" href="https://templatemo.com" target="_blank">Pr. HAJJI Hicham</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Additional Scripts -->
+    <script src="assets/js/custom.js"></script>
+    <script src="assets/js/owl.js"></script>
+    <script src="assets/js/slick.js"></script>
+    <script src="assets/js/accordions.js"></script>
+
+    <script language = "text/Javascript"> 
+      cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
+      function clearField(t){                   //declaring the array outside of the
+      if(! cleared[t.id]){                      // function makes it static and global
+          cleared[t.id] = 1;  // you could use true and false, but that's more typing
+          t.value='';         // with more chance of typos
+          t.style.color='#fff';
+          }
+      }
+    </script>
+
+  </body>
+</html>
