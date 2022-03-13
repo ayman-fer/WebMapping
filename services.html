@@ -11,6 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <title>Géoportail Economique</title>
     <link rel="icon" type="image/x-icon" href="assets/images/favico.png">
+  
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -23,6 +24,21 @@
 
 	  <link rel="stylesheet" href="css/leaflet.css" />
     <link rel="stylesheet" href="css/check.css" />
+	  <link
+								rel="stylesheet"
+								href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+								integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+								crossorigin=""
+							  />
+							  <script
+								src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+								integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+								crossorigin=""
+							  ></script>
+						  
+							  <!-- Load Esri Leaflet from CDN -->
+							  <script src="https://unpkg.com/esri-leaflet@3.0.4/dist/esri-leaflet.js"></script>
+							  <script src="https://unpkg.com/esri-leaflet-vector@3.0.0/dist/esri-leaflet-vector.js"></script>
     
 	  <script src="js/leaflet.js"></script>
 	  <script src="SelectLayers.js"></script>
@@ -85,6 +101,13 @@
         border-radius: 15px;
         background: #a4c639;
       }
+       #mymap {
+								  width: 500px;
+								  height: 500px;
+								  font-family: Arial, Helvetica, sans-serif;
+								  font-size: 14px;
+								  color: #323232;
+								}
     </style>
 <!--
 
@@ -664,6 +687,100 @@ legend.addTo(map1);
                 <h4>Analyse</h4>
                 <p>Ces deux cartes illustrent la corrélation entre la pluviométrie et la richesse au Maroc.Pour un pays aussi dépendant de son agriculture que le Maroc, la pluviométrie conditionne fortement la croissance économique.
                 <br><br>La sécheresse impacte considérablement la population marocaine de manière globale, du fait que 80% des ruraux en subissent les effets en termes de moyens de subsistance tributaires de l’activité agricole, qui représente non moins de 15% du PIB et emploie 40% de la population active. Quelque 3,8 milliards de dirhams (plus de 400 millions de dollars) sont nécessaires pour les seules subventions à la farine en 2022, selon un responsable du ministère de l'Economie. Malgré une embellie pour les récoltes en 2021, une sécheresse alarmante affecte considérablement l'agriculture en ce début d'année. Ce stress hydrique affecte toute l'économie rurale. </p>
+              </article>
+	      <article id='tabs-6'>
+                <div id='mymap' ></div>
+									
+
+							  <script>
+						
+								const mymap = L.mymap('mymap').setView([29.638933, -9.665423], 5);
+						
+								const mbAttr = 'mymap data &copy; <a href="https://www.openstreetmymap.org/copyright">OpenStreetmymap</a> contributors, Imagery © <a href="https://www.mymapbox.com/">mymapbox</a>';
+								const mbUrl = 'https://api.mymapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+										  
+								var grayscale = L.tileLayer(mbUrl, {id: 'mymapbox/light-v9', tileSize: 512, zoomOffset: -1, attribution: mbAttr}).addTo(mymap);
+								var streets = L.tileLayer(mbUrl, {id: 'mymapbox/streets-v11', tileSize: 512, zoomOffset: -1, attribution: mbAttr}).addTo(mymap);
+						  
+						  
+						  
+								// Create the select dropdown and add to the top-right of the mymap
+								L.Control.QueryControl = L.Control.extend({
+								  onAdd: function (mymap) {
+									// Array of query where clauses
+									const whereClauses = [
+									  "Afficher les régions dont :",
+									  "pib < 5",
+                                      "pib < 10 and pib > 5",
+									  "pib < 20 and pib > 10",
+									  "pib > 20",
+                                      
+									  
+									  
+									];
+									
+									// Create select
+									const select = L.DomUtil.create("select", "");
+									select.setAttribute("id", "whereClauseSelect");
+									select.setAttribute("style", "font-size: 16px;padding:4px 8px;");
+									whereClauses.forEach(function (whereClause) {
+									  let option = L.DomUtil.create("option");
+									  option.innerHTML = whereClause;
+									  select.appendChild(option);
+									});
+									return select;
+								  },
+						  
+								  onRemove: function (mymap) {
+									// Nothing to do here
+								  }
+								});
+						  
+								L.control.queryControl = function (opts) {
+								  return new L.Control.QueryControl(opts);
+								};
+						  
+								L.control
+								  .queryControl({
+									position: "topright"
+								  })
+								  .addTo(mymap);
+						  
+								// Add the Feature Layer to the mymap
+								const parcels = L.esri
+								  .featureLayer({
+									url: "https://services1.arcgis.com/tc7bk3uNFhL9WUin/arcgis/rest/services/pibregionsgeojson/FeatureServer/0",
+									simplifyFactor: 0.5,
+									precision: 4,
+									where: "1 = 0",
+									style: function (feature) {
+									  // https://leafletjs.com/reference-1.7.1.html#path-option
+									  return {
+										opacity: 1.0,
+										weight: 0.5,
+										color: "#31a354",
+										fillColor: "#addd8e",
+										fillOpacity: 0.5
+									  };
+									}
+								  })
+								  .addTo(mymap);
+						  
+								//Setup the Popup
+								parcels.bindPopup(function (layer) {
+								return L.Util.template("<b>Région : {Région}</b>" + " </br> Nombre de touristes: {2017}", layer.feature.properties);
+								});
+						  
+								// When the selected where clause changes, set the filter on the layer
+								const select = document.getElementById("whereClauseSelect");
+								select.addEventListener("change", () => {
+								  if (select.value !== "") {
+									parcels.setWhere(select.value);
+								  }
+								});
+						
+							  </script>
+       
               </article>
             </section>
           </div>
