@@ -718,6 +718,43 @@ legend.addTo(map1);
               <article id='tabs-6'>
                 
                 
+                <head>
+                  <meta charset="utf-8" />
+                  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+                  <title>Esri Leaflet</title>
+  
+                  <!-- Load Leaflet from CDN -->
+                  <link
+                  rel="stylesheet"
+                  href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+                  integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+                  crossorigin=""
+                  />
+                  <script
+                  src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+                  integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+                  crossorigin=""
+                  ></script>
+                
+                  <!-- Load Esri Leaflet from CDN -->
+                  <script src="https://unpkg.com/esri-leaflet@3.0.4/dist/esri-leaflet.js"></script>
+                  <script src="https://unpkg.com/esri-leaflet-vector@3.0.0/dist/esri-leaflet-vector.js"></script>
+                
+                  <style>
+                  #mymap {
+                    width: 500px;
+                    height: 500px;
+                    font-family: Arial, Helvetica, sans-serif;
+                    font-size: 14px;
+                    color: #323232;
+                  }
+                  </style>
+  
+              <html>
+                </head>
+                  <body>
+                
+                
                 <div id='mymap' ></div>
 									
 
@@ -771,14 +808,14 @@ legend.addTo(map1);
 						  
 								L.control
 								  .queryControl({
-									position: "topright"
+									position: "topleft"
 								  })
 								  .addTo(mymap);
 						  
 								// Add the Feature Layer to the map
 								const parcels = L.esri
 								  .featureLayer({
-									url: "https://services1.arcgis.com/tc7bk3uNFhL9WUin/arcgis/rest/services/pibregionsgeojson/FeatureServer/0",
+									url: "http://services1.arcgis.com/tc7bk3uNFhL9WUin/arcgis/rest/services/pibregionsgeojson/FeatureServer/0",
 									simplifyFactor: 0.5,
 									precision: 4,
 									where: "1 = 0",
@@ -809,6 +846,7 @@ legend.addTo(map1);
 								});
 						
 							  </script>
+              </html>
               </article>
             </section>
           </div>
